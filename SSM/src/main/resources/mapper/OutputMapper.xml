@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.dzq.ssm.dao.OutputMapper">
+  <resultMap id="BaseResultMap" type="org.dzq.ssm.pojo.Output">
+    <id column="oid" jdbcType="INTEGER" property="oid" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="pcount" jdbcType="INTEGER" property="pcount" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="annt" jdbcType="VARCHAR" property="annt" />
+    <result column="outputtime" jdbcType="TIMESTAMP" property="outputtime" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    oid, name, pcount, price, annt, outputtime
+  </sql>
+  <select id="selectAllOutput" resultType="Output">
+  	select * from t_output
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_output
+    where oid = #{oid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_output
+    where oid = #{oid,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="Output">
+    insert into t_output (oid, name, pcount, 
+      price, annt, outputtime
+      )
+    values (#{oid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{pcount,jdbcType=INTEGER}, 
+      #{price,jdbcType=DECIMAL}, #{annt,jdbcType=VARCHAR}, #{outputtime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.dzq.ssm.pojo.Output">
+    insert into t_output
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="oid != null">
+        oid,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="pcount != null">
+        pcount,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="annt != null">
+        annt,
+      </if>
+      <if test="outputtime != null">
+        outputtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="oid != null">
+        #{oid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="pcount != null">
+        #{pcount,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="annt != null">
+        #{annt,jdbcType=VARCHAR},
+      </if>
+      <if test="outputtime != null">
+        #{outputtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="org.dzq.ssm.pojo.Output">
+    update t_output
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="pcount != null">
+        pcount = #{pcount,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="annt != null">
+        annt = #{annt,jdbcType=VARCHAR},
+      </if>
+      <if test="outputtime != null">
+        outputtime = #{outputtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where oid = #{oid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.dzq.ssm.pojo.Output">
+    update t_output
+    set name = #{name,jdbcType=VARCHAR},
+      pcount = #{pcount,jdbcType=INTEGER},
+      price = #{price,jdbcType=DECIMAL},
+      annt = #{annt,jdbcType=VARCHAR},
+      outputtime = #{outputtime,jdbcType=TIMESTAMP}
+    where oid = #{oid,jdbcType=INTEGER}
+  </update>
+</mapper>

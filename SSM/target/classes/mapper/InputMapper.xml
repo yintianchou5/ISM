@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.dzq.ssm.dao.InputMapper">
+  <resultMap id="BaseResultMap" type="org.dzq.ssm.pojo.Input">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="pcount" jdbcType="INTEGER" property="pcount" />
+    <result column="dprice" jdbcType="DECIMAL" property="dprice" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="annt" jdbcType="VARCHAR" property="annt" />
+    <result column="pname" jdbcType="VARCHAR" property="pname" />
+    <result column="inputtime" jdbcType="TIMESTAMP" property="inputtime" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    id, name, pcount, dprice, price, annt, pname, inputtime
+  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_input
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAllInput" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+    from t_input
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_input
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="org.dzq.ssm.pojo.Input">
+    insert into t_input (id, name, pcount, 
+      dprice, price, annt, 
+      pname, inputtime)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{pcount,jdbcType=INTEGER}, 
+      #{dprice,jdbcType=DECIMAL}, #{price,jdbcType=DECIMAL}, #{annt,jdbcType=VARCHAR}, 
+      #{pname,jdbcType=VARCHAR}, #{inputtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="org.dzq.ssm.pojo.Input">
+    insert into t_input
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="pcount != null">
+        pcount,
+      </if>
+      <if test="dprice != null">
+        dprice,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="annt != null">
+        annt,
+      </if>
+      <if test="pname != null">
+        pname,
+      </if>
+      <if test="inputtime != null">
+        inputtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="pcount != null">
+        #{pcount,jdbcType=INTEGER},
+      </if>
+      <if test="dprice != null">
+        #{dprice,jdbcType=DECIMAL},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="annt != null">
+        #{annt,jdbcType=VARCHAR},
+      </if>
+      <if test="pname != null">
+        #{pname,jdbcType=VARCHAR},
+      </if>
+      <if test="inputtime != null">
+        #{inputtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+ 
+ 
+  
+  <update id="updateByPrimaryKeySelective" parameterType="org.dzq.ssm.pojo.Input">
+    update t_input
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="pcount != null">
+        pcount = #{pcount,jdbcType=INTEGER},
+      </if>
+      <if test="dprice != null">
+        dprice = #{dprice,jdbcType=DECIMAL},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="annt != null">
+        annt = #{annt,jdbcType=VARCHAR},
+      </if>
+      <if test="pname != null">
+        pname = #{pname,jdbcType=VARCHAR},
+      </if>
+      <if test="inputtime != null">
+        inputtime = #{inputtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.dzq.ssm.pojo.Input">
+    update t_input
+    set name = #{name,jdbcType=VARCHAR},
+      pcount = #{pcount,jdbcType=INTEGER},
+      dprice = #{dprice,jdbcType=DECIMAL},
+      price = #{price,jdbcType=DECIMAL},
+      annt = #{annt,jdbcType=VARCHAR},
+      pname = #{pname,jdbcType=VARCHAR},
+      inputtime = #{inputtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

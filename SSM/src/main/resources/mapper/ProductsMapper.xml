@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.dzq.ssm.dao.ProductsMapper">
+  <resultMap id="BaseResultMap" type="org.dzq.ssm.pojo.Products">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="bid" jdbcType="INTEGER" property="bid" />
+    <result column="sid" jdbcType="INTEGER" property="sid" />
+    <result column="units" jdbcType="VARCHAR" property="units" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+    <result column="wvalue" jdbcType="INTEGER" property="wvalue" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+  </resultMap>
+  <select id="findAllProduct" resultType="Products" >
+  	select * from t_products 
+  </select>
+  <select id="selectProductByName" resultType="Products" parameterType="java.lang.String">
+  	select * from t_products where name=#{_parameter}
+  </select>
+  <select id="selectByProduct" resultType="Products" parameterType="Products">
+  	select * from t_products 
+  	<where>
+  		<if test="bid!=null">and bid=#{bid}</if>
+	  	<if test="sid!=null">and sid=#{sid}</if>
+	  	<if test="name!=null">and name like '%${name}%'</if>
+  	</where>
+  </select>
+ 	
+  <select id="selectProductsCount" >
+  	select count(*) from t_products
+  </select>
+  
+  <sql id="Base_Column_List">
+    id, name, bid, sid, units, count, wvalue, state, createtime
+  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_products
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_products
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="Products">
+    insert into t_products (id, name, bid, 
+      sid, units, count, 
+      wvalue, state, createtime
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{bid,jdbcType=INTEGER}, 
+      #{sid,jdbcType=INTEGER}, #{units,jdbcType=VARCHAR}, #{count,jdbcType=INTEGER}, 
+      #{wvalue,jdbcType=INTEGER}, #{state,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="Products">
+    insert into t_products
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="bid != null">
+        bid,
+      </if>
+      <if test="sid != null">
+        sid,
+      </if>
+      <if test="units != null">
+        units,
+      </if>
+      <if test="count != null">
+        count,
+      </if>
+      <if test="wvalue != null">
+        wvalue,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="bid != null">
+        #{bid,jdbcType=INTEGER},
+      </if>
+      <if test="sid != null">
+        #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="units != null">
+        #{units,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null">
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="wvalue != null">
+        #{wvalue,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+ 
+  <update id="updateByPrimaryKeySelective" parameterType="org.dzq.ssm.pojo.Products">
+    update t_products
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="bid != null">
+        bid = #{bid,jdbcType=INTEGER},
+      </if>
+      <if test="sid != null">
+        sid = #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="units != null">
+        units = #{units,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null">
+        count = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="wvalue != null">
+        wvalue = #{wvalue,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.dzq.ssm.pojo.Products">
+    update t_products
+    set name = #{name,jdbcType=VARCHAR},
+      bid = #{bid,jdbcType=INTEGER},
+      sid = #{sid,jdbcType=INTEGER},
+      units = #{units,jdbcType=VARCHAR},
+      count = #{count,jdbcType=INTEGER},
+      wvalue = #{wvalue,jdbcType=INTEGER},
+      state = #{state,jdbcType=INTEGER},
+      createtime = #{createtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

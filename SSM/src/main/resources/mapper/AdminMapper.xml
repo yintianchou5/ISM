@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.dzq.ssm.dao.AdminMapper">
+	<select id="findAll" resultType="Admin">
+		select * from t_admin 
+	</select>
+	
+	<select id="findByNameAndPwd" resultType="Admin" parameterType="String">
+		select * from t_admin where name=#{arg0} and pwd=#{arg1}
+	</select>
+
+	<select id="findById" resultType="Admin" parameterType="Integer">
+		select * from t_admin where id=#{id}
+	</select>
+	
+	<select id="findByName" resultType="Admin" parameterType="String">
+		select * from t_admin where name like '%${_parameter}%'
+	</select>
+	<insert id="insertAdmin" parameterType="Admin" >
+		insert into t_admin(name,pwd,state) values(#{name},#{pwd},#{state})
+	</insert>
+	<delete id="deleteAdmin" parameterType="Integer" >
+		delete from t_admin where id=#{id}
+	</delete>
+	<update id="updateAdmin" parameterType="Admin">
+		update t_admin set name=#{name},pwd=#{pwd},state=#{state} where id=#{id}
+	</update>
+</mapper>
